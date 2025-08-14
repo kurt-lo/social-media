@@ -2,6 +2,7 @@ package social_media.social_media.mapper;
 
 import org.springframework.stereotype.Component;
 import social_media.social_media.dto.UserDto;
+import social_media.social_media.dto.UserRegistrationDto;
 import social_media.social_media.model.UserModel;
 
 @Component
@@ -36,6 +37,18 @@ public class UserMapperImpl implements UserMapper {
                 .profilePicture(userDto.getProfilePicture())
                 .createdAt(userDto.getCreatedAt())
                 .updatedAt(userDto.getUpdatedAt())
+                .build();
+    }
+
+    @Override
+    public UserModel fromRegistrationDto(UserRegistrationDto registrationDto) {
+        if (registrationDto == null) return null;
+
+        return UserModel.builder()
+                .fullName(registrationDto.getFullName())
+                .userName(registrationDto.getUserName())
+                .email(registrationDto.getEmail())
+                .password(registrationDto.getPassword())
                 .build();
     }
 }
