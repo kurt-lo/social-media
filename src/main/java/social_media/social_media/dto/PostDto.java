@@ -4,20 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import social_media.social_media.enums.Role;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
+public class PostDto {
+
     private Long id;
-    private String fullName;
-    private String userName;
-    private String email;
-    private String bio;
-    private String profilePicture;
-    private Role role;
+    private String content;
+    private String imageUrl;
+    private Long userId;
     private String createdAt;
     private String updatedAt;
 }
+

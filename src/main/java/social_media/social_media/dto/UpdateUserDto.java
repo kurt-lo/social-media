@@ -10,7 +10,7 @@ import social_media.social_media.enums.Role;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
+public class UpdateUserDto {
     private Long id;
     private String fullName;
     private String userName;
@@ -18,6 +18,7 @@ public class UserDto {
     private String bio;
     private String profilePicture;
     private Role role;
+    private String password;
     private String createdAt;
     private String updatedAt;
 }

@@ -40,9 +40,9 @@ public class AdminController {
         return new ResponseEntity<>(jwtResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserModel>> getAllUsers() {
-        List<UserModel> users = userService.getAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<UserModel>> getAllUsers() {
+//        List<UserModel> users = userService.getAllUsers();
+//        return new ResponseEntity<>(users, HttpStatus.OK);
+//    }
 }

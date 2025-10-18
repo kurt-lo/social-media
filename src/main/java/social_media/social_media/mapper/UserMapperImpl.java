@@ -1,6 +1,7 @@
 package social_media.social_media.mapper;
 
 import org.springframework.stereotype.Component;
+import social_media.social_media.dto.UpdateUserDto;
 import social_media.social_media.dto.UserDto;
 import social_media.social_media.dto.AuthRegistrationDto;
 import social_media.social_media.enums.Role;
@@ -9,9 +10,9 @@ import social_media.social_media.model.UserModel;
 @Component
 public class UserMapperImpl implements UserMapper {
 
-    // Model to User DTO
+    // User Model to User DTO
     @Override
-    public UserDto toDto(UserModel userModel) {
+    public UserDto fromUserModeltoUserDto(UserModel userModel) {
         if (userModel == null) return null;
 
         return UserDto.builder()
@@ -21,6 +22,7 @@ public class UserMapperImpl implements UserMapper {
                 .email(userModel.getEmail())
                 .bio(userModel.getBio())
                 .profilePicture(userModel.getProfilePicture())
+                .role(userModel.getRole())
                 .createdAt(userModel.getCreatedAt())
                 .updatedAt(userModel.getUpdatedAt())
                 .build();
@@ -45,7 +47,7 @@ public class UserMapperImpl implements UserMapper {
 
     // Registration DTO to Model
     @Override
-    public UserModel fromRegistrationDto(AuthRegistrationDto registrationDto, Role role) {
+    public UserModel fromRegistrationDtoUserModel(AuthRegistrationDto registrationDto, Role role) {
         if (registrationDto == null) return null;
 
         return UserModel.builder()
@@ -54,6 +56,41 @@ public class UserMapperImpl implements UserMapper {
                 .email(registrationDto.getEmail())
                 .password(registrationDto.getPassword())
                 .role(role)
+                .build();
+    }
+
+    @Override
+    public UserDto fromUserModelToUserDtoWithoutPassword(UserModel userModel) {
+        if (userModel == null) return null;
+
+        return UserDto.builder()
+                .id(userModel.getId())
+                .fullName(userModel.getFullName())
+                .userName(userModel.getUserName())
+                .email(userModel.getEmail())
+                .bio(userModel.getBio())
+                .profilePicture(userModel.getProfilePicture())
+                .role(userModel.getRole())
+                .createdAt(userModel.getCreatedAt())
+                .updatedAt(userModel.getUpdatedAt())
+                .build();
+    }
+
+    @Override
+    public UpdateUserDto fromUpdatedUserModelToUserDto(UserModel updatedUserModel) {
+        if (updatedUserModel == null) return null;
+
+        return UpdateUserDto.builder()
+                .id(updatedUserModel.getId())
+                .fullName(updatedUserModel.getFullName())
+                .userName(updatedUserModel.getUserName())
+                .email(updatedUserModel.getEmail())
+                .bio(updatedUserModel.getBio())
+                .profilePicture(updatedUserModel.getProfilePicture())
+                .role(updatedUserModel.getRole())
+                .password(updatedUserModel.getPassword())
+                .createdAt(updatedUserModel.getCreatedAt())
+                .updatedAt(updatedUserModel.getUpdatedAt())
                 .build();
     }
 }

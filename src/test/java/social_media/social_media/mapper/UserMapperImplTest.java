@@ -9,7 +9,7 @@ class UserMapperImplTest {
     private final UserMapperImpl userMapper = new UserMapperImpl();
 
     @Test
-    void toDto() {
+    void fromUserModeltoUserDto() {
         // Arrange
         UserModel userModel = UserModel.builder().
                 id(1L).
@@ -23,7 +23,7 @@ class UserMapperImplTest {
                 build();
 
         // Act
-        UserDto userDto = userMapper.toDto(userModel);
+        UserDto userDto = userMapper.fromUserModeltoUserDto(userModel);
 
         // Assert
         assert userDto != null;

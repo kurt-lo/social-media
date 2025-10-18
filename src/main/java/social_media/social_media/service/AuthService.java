@@ -51,7 +51,7 @@ public class AuthService {
             return "Email already exists!";
         }
 
-        UserModel user = userMapper.fromRegistrationDto(authRegistrationDto, role);
+        UserModel user = userMapper.fromRegistrationDtoUserModel(authRegistrationDto, role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(role);
         userRepository.save(user);

@@ -4,15 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import social_media.social_media.dto.AuthLoginDto;
-import social_media.social_media.dto.AuthRegistrationDto;
-import social_media.social_media.dto.JwtResponseDto;
+import social_media.social_media.dto.*;
 import social_media.social_media.enums.Role;
+import social_media.social_media.mapper.UserMapper;
 import social_media.social_media.model.UserModel;
 import social_media.social_media.service.AuthService;
 import social_media.social_media.service.UserService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -20,21 +17,18 @@ import java.util.List;
 public class UserController {
 
     private final AuthService authService;
+    private final UserService userService;
 
-    public UserController(AuthService authService) {
+    public UserController(AuthService authService,
+                          UserService userService) {
         this.authService = authService;
+        this.userService = userService;
     }
 
     @GetMapping("hello")
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("Hello, User!");
     }
-
-//    @GetMapping
-//    public ResponseEntity<List<UserModel>> getAllUsers() {
-//        List<UserModel> users = AuthService.getAllUsers();
-//        return ResponseEntity.ok(users);
-//    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody AuthRegistrationDto authRegistrationDto) {
@@ -44,8 +38,22 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDto> loginUser(@RequestBody AuthLoginDto authLoginDto) {
-        JwtResponseDto jwtResponseDto = authService.loginUser(authLoginDto, Role.ADMIN);
+        JwtResponseDto jwtResponseDto = authService.loginUser(authLoginDto, Role.USER);
         log.info("User logged in successfully: {}", authLoginDto.getEmail());
         return new ResponseEntity<>(jwtResponseDto, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        UserDto user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateUserDto> updateProfile(@PathVariable Long id, @RequestBody UserModel updatedUser) {
+        UpdateUserDto updatedUserDto = userService.updateProfile(id, updatedUser);
+        log.info("User profile updated successfully for user id: {}", id);
+        return new ResponseEntity<>(updatedUserDto, HttpStatus.OK);
+    }
+
 }

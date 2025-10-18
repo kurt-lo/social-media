@@ -3,6 +3,7 @@ package social_media.social_media.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import social_media.social_media.enums.Role;
 import social_media.social_media.model.UserModel;
 
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class CustomerUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("Role_" + role));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
     @Override
