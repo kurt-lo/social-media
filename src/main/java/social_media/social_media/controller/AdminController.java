@@ -15,30 +15,21 @@ import social_media.social_media.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/admin")
 @Slf4j
-public class UserController {
+public class AdminController {
 
     private final AuthService authService;
+    private final UserService userService;
 
-    public UserController(AuthService authService) {
+    public AdminController(AuthService authService, UserService userService) {
         this.authService = authService;
+        this.userService = userService;
     }
-
-    @GetMapping("hello")
-    public ResponseEntity<String> hello() {
-        return ResponseEntity.ok("Hello, User!");
-    }
-
-//    @GetMapping
-//    public ResponseEntity<List<UserModel>> getAllUsers() {
-//        List<UserModel> users = AuthService.getAllUsers();
-//        return ResponseEntity.ok(users);
-//    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody AuthRegistrationDto authRegistrationDto) {
-        String response = authService.registerUser(authRegistrationDto, Role.USER);
+        String response = authService.registerUser(authRegistrationDto, Role.ADMIN);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -47,5 +38,11 @@ public class UserController {
         JwtResponseDto jwtResponseDto = authService.loginUser(authLoginDto, Role.ADMIN);
         log.info("User logged in successfully: {}", authLoginDto.getEmail());
         return new ResponseEntity<>(jwtResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserModel>> getAllUsers() {
+        List<UserModel> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

@@ -1,53 +1,64 @@
 package social_media.social_media.security;
 
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import social_media.social_media.model.UserModel;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Custom UserDetails implementation for the social media application.
  * This class implements UserDetails interface and provides user information
  * required by Spring Security.
  */
-public record CustomerUserDetails(UserModel userModel) implements UserDetails {
+public class CustomerUserDetails implements UserDetails {
+
+    private final String email;
+    private final String password;
+    private final String role;
+
+    public CustomerUserDetails(UserModel userModel) {
+        this.email = userModel.getEmail();
+        this.password = userModel.getPassword();
+        this.role = userModel.getRole().name();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return List.of(new SimpleGrantedAuthority("Role_" + role));
     }
 
     @Override
     public String getPassword() {
-        return userModel.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return userModel.getEmail();
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 }

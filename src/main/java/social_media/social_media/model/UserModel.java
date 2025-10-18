@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
+import social_media.social_media.enums.Role;
 
 @Entity
 @Data
@@ -27,6 +28,8 @@ public class UserModel {
     private String password;
     private String bio;
     private String profilePicture;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @CreationTimestamp(source = SourceType.DB)
     private String createdAt;
     @UpdateTimestamp(source = SourceType.DB)

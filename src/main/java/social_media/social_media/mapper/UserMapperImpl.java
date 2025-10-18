@@ -2,12 +2,14 @@ package social_media.social_media.mapper;
 
 import org.springframework.stereotype.Component;
 import social_media.social_media.dto.UserDto;
-import social_media.social_media.dto.UserRegistrationDto;
+import social_media.social_media.dto.AuthRegistrationDto;
+import social_media.social_media.enums.Role;
 import social_media.social_media.model.UserModel;
 
 @Component
 public class UserMapperImpl implements UserMapper {
 
+    // Model to User DTO
     @Override
     public UserDto toDto(UserModel userModel) {
         if (userModel == null) return null;
@@ -24,6 +26,7 @@ public class UserMapperImpl implements UserMapper {
                 .build();
     }
 
+    // User DTO to Model
     @Override
     public UserModel toModel(UserDto userDto) {
         if (userDto == null) return null;
@@ -40,8 +43,9 @@ public class UserMapperImpl implements UserMapper {
                 .build();
     }
 
+    // Registration DTO to Model
     @Override
-    public UserModel fromRegistrationDto(UserRegistrationDto registrationDto) {
+    public UserModel fromRegistrationDto(AuthRegistrationDto registrationDto, Role role) {
         if (registrationDto == null) return null;
 
         return UserModel.builder()
@@ -49,6 +53,7 @@ public class UserMapperImpl implements UserMapper {
                 .userName(registrationDto.getUserName())
                 .email(registrationDto.getEmail())
                 .password(registrationDto.getPassword())
+                .role(role)
                 .build();
     }
 }

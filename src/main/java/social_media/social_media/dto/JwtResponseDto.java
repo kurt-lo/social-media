@@ -8,5 +8,6 @@ import lombok.Data;
 public class JwtResponseDto {
 
     private String token;
+    private String email;
 
 }
