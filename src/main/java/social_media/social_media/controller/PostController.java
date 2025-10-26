@@ -35,4 +35,19 @@ public class PostController {
         List<PostDto> posts = postService.getAllPostsByUserId(userId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+
+    @PatchMapping("/{postId}/user/{userId}")
+    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto updatedPostDto,
+                                                  @PathVariable Long postId,
+                                                  @PathVariable Long userId) {
+        PostDto updatedPost = postService.updatePostById(updatedPostDto, postId, userId);
+        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{postId})")
+    public ResponseEntity<Void> deletePostById(@PathVariable Long postId) {
+        postService.deletePostById(postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

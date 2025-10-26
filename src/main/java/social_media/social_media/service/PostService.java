@@ -40,7 +40,7 @@ public class PostService {
 
     public PostDto getPostById(Long postId) {
         PostModel post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post not found ID: " + postId));
+                .orElseThrow(() -> new RuntimeException("Post to get not found ID: " + postId));
 
         return postMapper.fromPostModelToPostDto(post);
     }
@@ -52,5 +52,31 @@ public class PostService {
                 .map(postMapper::fromPostModelToPostDto)
                 .collect(Collectors.toList());
 
+    }
+
+    public PostDto updatePostById(PostDto updatedPostDto, Long postId, Long userId) {
+        PostModel existingPost = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found ID: " + postId));
+
+        if (!existingPost.getUserModel().getId().equals(userId)) {
+            throw new RuntimeException("User ID: " + userId + " is not authorized to update this post.");
+        }
+
+        if (updatedPostDto.getContent() != null) {
+            existingPost.setContent(updatedPostDto.getContent());
+        }
+
+        if (updatedPostDto.getImageUrl() != null) {
+            existingPost.setImageUrl(updatedPostDto.getImageUrl());
+        }
+
+        PostModel updatedPost = postRepository.save(existingPost);
+        return postMapper.fromPostModelToPostDto(updatedPost);
+    }
+
+    public void deletePostById(Long postId) {
+        PostModel post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post to delete not found ID: " + postId));
+        postRepository.delete(post);
     }
 }
