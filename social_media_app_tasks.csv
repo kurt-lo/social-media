@@ -11,7 +11,7 @@ Phase 3: User Profile,Create Profile Endpoints,Medium,"GET /api/users/{username}
 Phase 3: User Profile,Enable Profile Image Upload,Medium,Upload and store profile images locally or on S3
 Phase 4: Posts & Feed,Create Post Entity & Repository,High,"Add id, content, media, user, createdAt"
 Phase 4: Posts & Feed,Post Endpoints,High,"POST, GET feed, GET by id, DELETE posts"
-Phase 4: Posts & Feed,Enable Media Upload for Posts,Medium,Handle image/video uploads securely
+Phase 4: Posts & Feed,Enable Media Upload for Posts,Medium,"Handle image/video uploads securely (Note** pending for file upload when FE is created, for now just json.)"
 Phase 5: Social Features,Likes System,Medium,"POST /api/posts/{id}/like, DELETE /api/posts/{id}/like"
 Phase 5: Social Features,Comments System,Medium,"POST /api/posts/{id}/comment, GET comments"
 Phase 5: Social Features,Follow/Unfollow System,Medium,"POST/DELETE follow, GET followers/following"
