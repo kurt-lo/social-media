@@ -15,7 +15,7 @@ public class PostMapperImpl implements PostMapper{
                 .id(postModel.getId())
                 .content(postModel.getContent())
                 .imageUrl(postModel.getImageUrl())
-                .userId(postModel.getUserModel().getId())
+                .userId(postModel.getUser().getId())
                 .createdAt(postModel.getCreatedAt())
                 .updatedAt(postModel.getUpdatedAt())
                 .build();

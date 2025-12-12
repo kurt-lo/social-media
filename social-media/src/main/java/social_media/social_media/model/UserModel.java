@@ -8,6 +8,9 @@ import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 import social_media.social_media.enums.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -28,6 +31,10 @@ public class UserModel {
     private String password;
     private String bio;
     private String profilePicture;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LikeModel> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostModel> posts = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Role role;
     @CreationTimestamp(source = SourceType.DB)

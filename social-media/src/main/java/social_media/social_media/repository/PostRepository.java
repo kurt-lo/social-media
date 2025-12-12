@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<PostModel, Long> {
-    List<PostModel> findByUserModelId(Long userId);
+    List<PostModel> findByUserId(Long userId);
 }

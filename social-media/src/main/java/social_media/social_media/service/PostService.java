@@ -32,7 +32,7 @@ public class PostService {
 
         PostModel post = postMapper.fromPostDtoToPostModel(postDto);
 
-        post.setUserModel(user);
+        post.setUser(user);
 
         PostModel savedPost = postRepository.save(post);
         return postMapper.fromPostModelToPostDto(savedPost);
@@ -46,7 +46,7 @@ public class PostService {
     }
 
     public List<PostDto> getAllPostsByUserId(Long userId) {
-        List<PostModel> posts = postRepository.findByUserModelId(userId);
+        List<PostModel> posts = postRepository.findByUserId(userId);
 
         return posts.stream()
                 .map(postMapper::fromPostModelToPostDto)
@@ -58,7 +58,7 @@ public class PostService {
         PostModel existingPost = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found ID: " + postId));
 
-        if (!existingPost.getUserModel().getId().equals(userId)) {
+        if (!existingPost.getUser().getId().equals(userId)) {
             throw new RuntimeException("User ID: " + userId + " is not authorized to update this post.");
         }
 
