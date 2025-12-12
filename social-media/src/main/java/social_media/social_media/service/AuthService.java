@@ -87,7 +87,7 @@ public class AuthService {
                     null
             );
 
-            return new JwtResponseDto(email, token);
+            return new JwtResponseDto(token, email);
         } catch (AuthenticationException e) {
             throw new RuntimeException("Invalid email or password", e);
         }
